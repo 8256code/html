@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多标签页自动打开</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #4a6baf;
+            margin-bottom: 1.5rem;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(74, 107, 175, 0.3);
+            border-radius: 50%;
+            border-top-color: #4a6baf;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .status {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>正在为您打开常用网站</h1>
+        <div>
+            <span class="loading"></span>
+            <span>请稍候...</span>
+        </div>
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urls = [
+                'https://idx.google.com/ew65-us-01-98260655',
+                'https://idx.google.com/ew65-us-02-23049459',
+                'https://idx.google.com/ew65-us-03-59893926',
+				
+				'https://idx.google.com/ew65-nl-01-12167491',
+				
+				'https://idx.google.com/ew65-tw-01-19898505',
+				'https://idx.google.com/ew65-tw-02-38038863',
+				'https://idx.google.com/ew65-tw-03-87540449',
+            ];
+            
+            const statusEl = document.getElementById('status');
+             // 主执行函数（延迟1秒执行）
+            setTimeout(() => {
+				urls.forEach((url, index) => {
+					setTimeout(() => {
+						window.open(url, '_blank');
+						statusEl.innerHTML += `已打开: ${url}<br>`;
+					}, index * 50000); // 间隔300ms依次打开
+				});
+				
+				setTimeout(() => {
+					statusEl.innerHTML += '<br>所有网站已打开完毕！';
+				}, urls.length * 50000 + 500);
+			}, 3000);
+        });
+    </script>
+</body>
+</html>
